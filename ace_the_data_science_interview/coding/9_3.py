@@ -29,5 +29,24 @@ def find_closest_coords(coord_arr, k):
 
 print(find_closest_coords([[2, -1], [3,2], [4,1], [-1,-1],[-2,2]], 3))
 
+from heapq import heappush, heappop
 
-# TODO: Implement w/ some hashed data structure
+def find_closest_coords_heapq(coord_arr, k):
+    """
+    Better solution utilizing heaps which are very fast at grabbing minimum
+    or maximum values based upon location in tree structure.
+    """
+    minimum_heap = []
+    origin = [0,0]
+    for coord in coord_arr:
+        dist = _euclidean(coord[0], origin[0], coord[1], origin[0])
+        heappush(minimum_heap, (dist, coord))
+
+    return_coords = []
+    for i in range(k):
+        return_coords.append(heappop(minimum_heap[i]))
+    return return_coords
+
+print(find_closest_coords([[2, -1], [3,2], [4,1], [-1,-1],[-2,2]], 3))
+
+ 
